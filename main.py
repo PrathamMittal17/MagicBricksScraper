@@ -200,4 +200,4 @@ def getData(city, path):
     print("Csv file created")
 
 
-getData("Jaipur", 'F:\')
+getData("Jaipur", 'F:')
