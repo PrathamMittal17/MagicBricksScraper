@@ -1,6 +1,6 @@
 # MagicBricksScraper
 
-This tool can be used to scrape property data from MagicBricks website.
+This tool can be used to scrape property data from MagicBricks website.\n
 It returns bhk,price,transaction type(new property/resale),address,area(in sqft),furnishing status.
 The data is stored in a csv format.
 
