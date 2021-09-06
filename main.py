@@ -201,4 +201,4 @@ def getData(city, path):
     print("Csv file created")
 
 
-getData("New-Delhi", 'F:\MachineLearningProjects\HousePricePredictor')
+getData("New-Delhi", 'F:')
