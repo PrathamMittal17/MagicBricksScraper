@@ -25,7 +25,6 @@ def getData(city, path):
     for i in range(1, 4):
         time.sleep(3)
         driver.execute_script(f"window.scrollTo(0,{yScroll})")
-        print(i, yScroll)
         yScroll += 8000
 
     time.sleep(1)
