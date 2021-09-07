@@ -22,7 +22,7 @@ def getData(city, path):
 
     # getting properties
     yScroll = 8000
-    for i in range(1, 1):
+    for i in range(1, 4):
         time.sleep(3)
         driver.execute_script(f"window.scrollTo(0,{yScroll})")
         yScroll += 8000
@@ -204,7 +204,7 @@ def getData(city, path):
 
 def removeDuplicate(path):
     df = pd.read_csv(f'{path}\data.csv')
-    df.drop_duplicates(keep=False,inplace=True)
+    df.drop_duplicates(keep='last',inplace=True)
     df.to_csv(f'{path}\data.csv', index=False)
 
 
