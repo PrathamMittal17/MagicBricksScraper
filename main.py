@@ -33,8 +33,8 @@ def getData(city, path, data_qty=3):
     desc_box = driver.find_elements_by_class_name('m-srp-card__title')
 
     # getting data
-    print(len(desc_box))
-    for i in range(10, len(desc_box)):
+
+    for i in range(0, len(desc_box)):
         try:
             price = ''
             bhk = ''
