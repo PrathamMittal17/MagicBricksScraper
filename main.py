@@ -34,7 +34,7 @@ def getData(city, path, data_qty=3):
 
     # getting data
     print(len(desc_box))
-    for i in range(0, len(desc_box)):
+    for i in range(10, len(desc_box)):
         try:
             price = ''
             bhk = ''
