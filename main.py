@@ -8,7 +8,7 @@ drive_path = "C:\chromedriver_win32\chromedriver.exe"
 driver = webdriver.Chrome(drive_path)
 
 
-def getData(city, path, data_qty=3):
+def getData(city, path, data_qty=3, start_value=0):
     pricelist = []
     bhklist = []
     statuslist = []
@@ -22,7 +22,7 @@ def getData(city, path, data_qty=3):
 
     # getting properties
     yScroll = 8000
-    for i in range(1, data_qty+1):
+    for i in range(1, data_qty):
         time.sleep(3)
         driver.execute_script(f"window.scrollTo(0,{yScroll})")
         yScroll += 8000
@@ -32,9 +32,10 @@ def getData(city, path, data_qty=3):
     time.sleep(4)
     desc_box = driver.find_elements_by_class_name('m-srp-card__title')
 
+    if start_value > 0:
+        start_value = start_value - 1
     # getting data
-
-    for i in range(0, len(desc_box)):
+    for i in range(start_value, len(desc_box)):
         try:
             price = ''
             bhk = ''
@@ -209,4 +210,4 @@ def removeDuplicate(path):
     df.to_csv(f'{path}\data.csv', index=False)
 
 
-getData("New-Delhi", 'F:\MachineLearningProjects\HousePricePredictor',data_qty=10)
+getData("New-Delhi", 'F:\MachineLearningProjects\HousePricePredictor', data_qty=10, start_value=200)
