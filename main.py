@@ -23,7 +23,7 @@ def getData(city, path, data_qty=3, start_value=0):
     # getting properties
     yScroll = 8000
     for i in range(1, data_qty):
-        time.sleep(3)
+        time.sleep(4)
         driver.execute_script(f"window.scrollTo(0,{yScroll})")
         yScroll += 8000
 
@@ -60,7 +60,6 @@ def getData(city, path, data_qty=3, start_value=0):
                     break
 
             if skip:
-                print("skip")
                 continue
 
             desc_box[i].click()
@@ -142,16 +141,7 @@ def getData(city, path, data_qty=3, start_value=0):
             except:
                 transaction_type = ''
 
-            try:
-                address = driver.find_element_by_css_selector('.p_address a').text
-
-                if address == '':
-                    address = driver.find_element_by_css_selector('.luxury-prop__loc a').text
-
-
-
-            except:
-                address = ''
+            address = city
 
             try:
                 try:
@@ -189,25 +179,27 @@ def getData(city, path, data_qty=3, start_value=0):
 
             driver.switch_to.window(driver.window_handles[0])
 
-        except:
+        except :
+            driver.close()
+            driver.switch_to.window(driver.window_handles[0])
             continue
 
     driver.quit()
     tuples = list(zip(pricelist, bhklist, statuslist, transactionlist, addresslist, arealist, furnishedlist))
     df = pd.DataFrame(tuples, columns=["price", "bhk", "status", "transaction", "address", "area", "furnished"])
     if Path(f'{path}\data.csv').is_file():
-        df.to_csv(f'{path}\data.csv', index=False, mode='a', header=False)
+        df.to_csv(f'{path}\{city}.csv', index=False, mode='a', header=False)
     else:
-        df.to_csv(f'{path}\data.csv', index=False)
+        df.to_csv(f'{path}\{city}.csv', index=False)
 
-    removeDuplicate(path)
+    removeDuplicate(path, city)
     print("Csv file created")
 
 
-def removeDuplicate(path):
-    df = pd.read_csv(f'{path}\data.csv')
+def removeDuplicate(path, city):
+    df = pd.read_csv(f'{path}\{city}.csv')
     df.drop_duplicates(keep='last', inplace=True)
-    df.to_csv(f'{path}\data.csv', index=False)
+    df.to_csv(f'{path}\{city}.csv', index=False)
 
 
-getData("New-Delhi", 'F:\MachineLearningProjects\HousePricePredictor', data_qty=10, start_value=200)
+getData("Raipur", 'F:\MachineLearningProjects\HousePricePredictor\Data', data_qty=3, start_value=0)
