@@ -31,7 +31,7 @@ def getData(city, path, data_qty=3, start_value=0):
     driver.execute_script(f"window.scrollTo(0,0)")
     time.sleep(4)
     desc_box = driver.find_elements_by_class_name('m-srp-card__title')
-
+    print(len(desc_box))
     if start_value > 0:
         start_value = start_value - 1
     # getting data
@@ -179,7 +179,7 @@ def getData(city, path, data_qty=3, start_value=0):
 
             driver.switch_to.window(driver.window_handles[0])
 
-        except :
+        except:
             driver.close()
             driver.switch_to.window(driver.window_handles[0])
             continue
@@ -188,18 +188,18 @@ def getData(city, path, data_qty=3, start_value=0):
     tuples = list(zip(pricelist, bhklist, statuslist, transactionlist, addresslist, arealist, furnishedlist))
     df = pd.DataFrame(tuples, columns=["price", "bhk", "status", "transaction", "address", "area", "furnished"])
     if Path(f'{path}\data.csv').is_file():
-        df.to_csv(f'{path}\{city}.csv', index=False, mode='a', header=False)
+        df.to_csv(f'{path}\data.csv', index=False, mode='a', header=False)
     else:
-        df.to_csv(f'{path}\{city}.csv', index=False)
+        df.to_csv(f'{path}\data.csv', index=False)
 
     removeDuplicate(path, city)
     print("Csv file created")
 
 
 def removeDuplicate(path, city):
-    df = pd.read_csv(f'{path}\{city}.csv')
+    df = pd.read_csv(f'{path}\data.csv')
     df.drop_duplicates(keep='last', inplace=True)
-    df.to_csv(f'{path}\{city}.csv', index=False)
+    df.to_csv(f'{path}\data.csv', index=False)
 
 
-getData("Raipur", 'F:\MachineLearningProjects\HousePricePredictor\Data', data_qty=3, start_value=0)
+getData("Raipur", 'F:\MachineLearningProjects\HousePricePredictor', data_qty=3, start_value=0)
